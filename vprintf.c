@@ -45,3 +45,25 @@ int _vprintf(const char *format, va_list args)
 
 	return (count);
 }
+
+/**
+ * func_call - calls for the appropriate function based on the specifier.
+ * @c: the format specifier to be checked.
+ * @args: the list of passed arguments
+ *
+ * Return: number of bytes of the passed argument that a format specifier
+ * is requesting
+ */
+int func_call(char c, va_list args)
+{
+	int i, count = 0;
+
+	for (i = 0; ffuncs[i].spec; i++)
+		if (c == ffuncs[i].spec[0])
+		{
+			count += ffuncs[i].hf(args);
+			break;
+		}
+
+	return (count);
+}
